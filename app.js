@@ -31,7 +31,6 @@ const translations = {
 
     // Layout Section
     "layout-title": "Guest House Layout",
-    "layout-desc": "Choose the perfect configuration for your stay. We offer spacious rooms designed for comfort and relaxation.",
     "layout-tab-entire": "Entire House",
     "layout-tab-master": "Master Bedroom",
     "layout-tab-living": "Living Area",
@@ -128,7 +127,6 @@ const translations = {
 
     // Layout Section
     "layout-title": "Susun Atur Guest House",
-    "layout-desc": "Pilih susunan bilik terbaik untuk penginapan anda. Kami menawarkan bilik luas yang direka untuk keselesaan.",
     "layout-tab-entire": "Keseluruhan Rumah",
     "layout-tab-master": "Bilik Utama",
     "layout-tab-living": "Ruang Tamu",
