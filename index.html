@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NSJay Guest House | Cozy Stay in Besut, Terengganu</title>
-    <meta name="description" content="Welcome to NSJay Guest House, your cozy bilingual stay in Besut, Terengganu, Malaysia. Perfect for family getaways and Pulau Perhentian transits.">
+    <title>NSJay Guest House | Cozy Stay in Anak Ikan, Besut, Terengganu</title>
+    <meta name="description"
+        content="Welcome to NSJay Guest House, your cozy bilingual stay in Besut, Terengganu, Malaysia. Perfect for family getaways and Pulau Perhentian transits.">
     <!-- Style Sheet -->
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body>
 
     <!-- --- HEADER / NAVIGATION --- -->
@@ -106,39 +110,104 @@
     </section>
 
     <!-- --- LOCATION SECTION --- -->
-    <section id="location" class="section-padding container">
-        <div class="section-header">
-            <h2 data-translate="loc-title">Our Location</h2>
-            <p data-translate="loc-desc">Conveniently located in Besut, Malaysia. A perfect stopover or staycation spot near beautiful beaches and transit points.</p>
+    <section id="location" class="w-full py-16 px-4 md:px-8 max-w-7xl mx-auto">
+        <!-- Section Title -->
+        <div class="text-center mb-12">
+            <h2 class="font-['Quicksand'] font-bold text-3xl md:text-4xl text-[#3D405B] relative inline-block">
+                Our Location / Lokasi Kami
+                <span class="absolute bottom-[-6px] left-1/4 w-1/2 h-2 bg-[#FFD6E0] rounded-full opacity-60 -z-10"></span>
+            </h2>
         </div>
-        
-        <div class="glass-card location-grid section-padding" style="padding: 40px;">
-            <div class="location-info">
-                <div class="info-item">
-                    <div class="floating-icon-wrapper blue">
-                        <svg viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
-                    </div>
-                    <div>
-                        <h3 data-translate="loc-address-title">Address</h3>
-                        <p data-translate="loc-address-text">Lot 1234, Jalan Pantai, Kampung Kuala Besut, 22200 Besut, Terengganu, Malaysia</p>
-                    </div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="floating-icon-wrapper pink">
-                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    </div>
-                    <div>
-                        <h3 data-translate="loc-nearby-title">Nearby Attractions</h3>
-                        <p data-translate="loc-nearby-text">Kuala Besut Jetty (Gateway to Perhentian Island) - 5 mins drive<br>Bukit Keluang Beach & Hiking Trail - 10 mins drive<br>Local Seafood Restaurants & Markets - walking distance</p>
-                    </div>
-                </div>
-            </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
             
-            <div class="map-container clay-card">
-                <!-- Kuala Besut general area map placeholder (using openstreetmap iframe) -->
-                <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=102.5400%2C5.8200%2C102.5800%2C5.8500&amp;layer=mapnik&amp;marker=5.8315%2C102.5595" title="Kuala Besut Map"></iframe>
+            <!-- Column 1: Location Card & Details -->
+            <div class="backdrop-blur-md bg-white/40 border border-white/60 rounded-3xl p-8 md:p-10 shadow-[15px_15px_30px_rgba(166,180,200,0.2),inset_-8px_-8px_16px_rgba(0,0,0,0.03),inset_8px_8px_16px_rgba(255,255,255,0.95)] flex flex-col justify-between items-start gap-8">
+                
+                <!-- 3D Map Pin Icon Container -->
+                <div class="flex items-center gap-6">
+                    <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-[6px_6px_12px_rgba(166,180,200,0.2),inset_-3px_-3px_6px_rgba(0,0,0,0.02),inset_3px_3px_6px_rgba(255,255,255,0.8)] animate-[bounce_3s_ease-in-out_infinite]">
+                        <!-- Cute 3D Matte Pin SVG -->
+                        <svg viewBox="0 0 64 64" class="w-10 h-10 drop-shadow-[0_8px_4px_rgba(166,180,200,0.3)]">
+                            <defs>
+                                <radialGradient id="pinGrad" cx="30%" cy="30%" r="70%">
+                                    <stop offset="0%" stop-color="#FFD6E0" />
+                                    <stop offset="70%" stop-color="#FFA6C9" />
+                                    <stop offset="100%" stop-color="#E88CAE" />
+                                </radialGradient>
+                                <radialGradient id="pinHole" cx="35%" cy="35%" r="60%">
+                                    <stop offset="0%" stop-color="#FFFFFF" />
+                                    <stop offset="100%" stop-color="#E3F2FD" />
+                                </radialGradient>
+                            </defs>
+                            <!-- Pin Shadow -->
+                            <ellipse cx="32" cy="56" rx="10" ry="4" fill="#A6B4C8" opacity="0.3" />
+                            <!-- Pin Body -->
+                            <path d="M32 6C20 6 12 14 12 26c0 14 20 30 20 30s20-16 20-30c0-12-8-20-20-20z" fill="url(#pinGrad)" />
+                            <!-- Pin Inner Hole -->
+                            <circle cx="32" cy="24" r="8" fill="url(#pinHole)" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="font-['Quicksand'] font-bold text-xs uppercase tracking-wider text-[#FFA6C9]">Besut, Terengganu</span>
+                        <h3 class="font-['Quicksand'] font-bold text-2xl text-[#3D405B] mt-0.5">NSJay Guest House</h3>
+                    </div>
+                </div>
+
+                <!-- Bilingual Descriptions (Dynamic Translation) -->
+                <div class="space-y-4 font-['Outfit'] w-full">
+                    <div class="bg-white/30 border border-white/40 rounded-2xl p-6 shadow-[inset_2px_2px_6px_rgba(166,180,200,0.1)]">
+                        <p class="text-[#3D405B] text-base leading-relaxed" data-translate="loc-desc-card">
+                            NSJay Guest House is located in Anak Ikan, Besut, Terengganu, in a peaceful and convenient area for guests.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Squishy 3D Clay CTA Button -->
+                <a href="https://maps.app.goo.gl/wwCDSa4xNcgjZeG48" target="_blank" rel="noopener noreferrer" 
+                    class="w-full md:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-['Quicksand'] font-bold text-base text-[#3D405B] bg-[#CDE8F5] border border-white/50 shadow-[10px_10px_20px_rgba(166,180,200,0.25),inset_-6px_-6px_12px_rgba(0,0,0,0.05),inset_6px_6px_12px_rgba(255,255,255,0.8)] hover:bg-[#bce0f2] hover:translate-y-[-2px] hover:shadow-[12px_12px_24px_rgba(166,180,200,0.35)] transition-all duration-300 active:translate-y-[1px] active:shadow-[inset_4px_4px_8px_rgba(166,180,200,0.2)]">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                        <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <span data-translate="btn-maps-waze">Open in Google Maps / Waze (Buka Google Maps / Waze)</span>
+                </a>
+
             </div>
+
+            <!-- Column 2: Map Preview Box -->
+            <div class="relative overflow-hidden min-h-[350px] lg:min-h-full rounded-3xl border border-white/40 bg-white/20 shadow-[inset_4px_4px_12px_rgba(166,180,200,0.25),inset_-4px_-4px_12px_rgba(255,255,255,0.7),0_16px_32px_0_rgba(166,180,200,0.15)] flex items-center justify-center">
+                
+                <!-- Liquid Glass Map Mockup Design -->
+                <svg class="absolute inset-0 w-full h-full p-6 stroke-[#A6B4C8]/30 stroke-[2] fill-none" viewBox="0 0 200 200" preserveAspectRatio="none">
+                    <!-- Abstract grid/map lines representing roads -->
+                    <path d="M 0,40 Q 50,60 100,40 T 200,60" />
+                    <path d="M 0,120 Q 70,100 130,130 T 200,110" />
+                    <path d="M 40,0 Q 60,80 50,200" />
+                    <path d="M 140,0 Q 120,90 150,200" />
+                    <path d="M 0,80 C 60,60 140,160 200,80" />
+                    <!-- Forest/Park clay details -->
+                    <rect x="10" y="70" width="25" height="20" rx="6" fill="#CDE8F5" opacity="0.3" stroke="none" />
+                    <rect x="155" y="20" width="30" height="30" rx="8" fill="#FFD6E0" opacity="0.2" stroke="none" />
+                    <rect x="80" y="140" width="40" height="25" rx="8" fill="#FFF3CD" opacity="0.3" stroke="none" />
+                </svg>
+
+                <!-- Centered visual focal point for map location -->
+                <div class="relative z-10 flex flex-col items-center justify-center p-6 text-center">
+                    <!-- Mock Map Radar Ring -->
+                    <span class="absolute w-24 h-24 rounded-full bg-[#8ECAE6]/10 border border-[#8ECAE6]/30 animate-[ping_2.5s_infinite]"></span>
+                    
+                    <!-- Matte clay core pin marker -->
+                    <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg border border-white/80">
+                        <span class="text-2xl animate-[pulse_2s_infinite]">🏡</span>
+                    </div>
+                    <span class="font-['Quicksand'] font-bold text-sm text-[#3D405B] mt-4 bg-white/70 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white shadow-sm">
+                        NSJay Guest House
+                    </span>
+                </div>
+
+            </div>
+
         </div>
     </section>
 
@@ -147,17 +216,21 @@
         <div class="container">
             <div class="section-header">
                 <h2 data-translate="layout-title">Guest House Layout</h2>
-                <p data-translate="layout-desc">Choose the perfect configuration for your stay. We offer spacious rooms designed for comfort and relaxation.</p>
+                <p data-translate="layout-desc">Choose the perfect configuration for your stay. We offer spacious rooms
+                    designed for comfort and relaxation.</p>
             </div>
-            
+
             <div class="layout-toggle-container">
                 <div class="layout-toggle">
-                    <button class="layout-toggle-btn active" data-tab="entire" data-translate="layout-tab-entire">Entire House</button>
-                    <button class="layout-toggle-btn" data-tab="master" data-translate="layout-tab-master">Master Bedroom</button>
-                    <button class="layout-toggle-btn" data-tab="living" data-translate="layout-tab-living">Living Area</button>
+                    <button class="layout-toggle-btn active" data-tab="entire" data-translate="layout-tab-entire">Entire
+                        House</button>
+                    <button class="layout-toggle-btn" data-tab="master" data-translate="layout-tab-master">Master
+                        Bedroom</button>
+                    <button class="layout-toggle-btn" data-tab="living" data-translate="layout-tab-living">Living
+                        Area</button>
                 </div>
             </div>
-            
+
             <div class="layout-display">
                 <!-- TAB 1: ENTIRE HOUSE -->
                 <div id="layout-entire" class="layout-pane active">
@@ -170,7 +243,8 @@
                             <rect x="50" y="75" width="20" height="45" fill="#3D405B" />
                             <rect x="90" y="75" width="25" height="20" rx="3" fill="#FFF3CD" />
                             <rect x="130" y="75" width="25" height="20" rx="3" fill="#FFF3CD" />
-                            <text x="100" y="140" fill="#6C757D" font-size="10" font-family="Quicksand" text-anchor="middle">Homestay Front View (Placeholder)</text>
+                            <text x="100" y="140" fill="#6C757D" font-size="10" font-family="Quicksand"
+                                text-anchor="middle">Homestay Front View (Placeholder)</text>
                         </svg>
                         <div class="layout-side-images">
                             <svg class="layout-sub-img" viewBox="0 0 100 80" style="background-color: #FFF0F5;">
@@ -185,18 +259,25 @@
                     </div>
                     <div class="layout-details">
                         <h3 data-translate="layout-entire-title">Spacious 3-Bedroom Homestay</h3>
-                        <p data-translate="layout-entire-desc">Rent the entire guest house for maximum privacy. Ideal for families and groups looking for a complete home experience.</p>
+                        <p data-translate="layout-entire-desc">Rent the entire guest house for maximum privacy. Ideal
+                            for families and groups looking for a complete home experience.</p>
                         <ul class="amenities-list">
-                            <li><span class="amenity-bullet">🛏️</span><span data-translate="amenity-rooms">3 Bedrooms</span></li>
-                            <li><span class="amenity-bullet">🚿</span><span data-translate="amenity-bathrooms">2 Bathrooms</span></li>
-                            <li><span class="amenity-bullet">❄️</span><span data-translate="amenity-ac">Fully Air-Conditioned</span></li>
-                            <li><span class="amenity-bullet">🍳</span><span data-translate="amenity-kitchen">Equipped Kitchen</span></li>
-                            <li><span class="amenity-bullet">📺</span><span data-translate="amenity-tv">Smart TV</span></li>
-                            <li><span class="amenity-bullet">🚗</span><span data-translate="amenity-parking">Private Parking (2 cars)</span></li>
+                            <li><span class="amenity-bullet">🛏️</span><span data-translate="amenity-rooms">3
+                                    Bedrooms</span></li>
+                            <li><span class="amenity-bullet">🚿</span><span data-translate="amenity-bathrooms">2
+                                    Bathrooms</span></li>
+                            <li><span class="amenity-bullet">❄️</span><span data-translate="amenity-ac">Fully
+                                    Air-Conditioned</span></li>
+                            <li><span class="amenity-bullet">🍳</span><span data-translate="amenity-kitchen">Equipped
+                                    Kitchen</span></li>
+                            <li><span class="amenity-bullet">📺</span><span data-translate="amenity-tv">Smart TV</span>
+                            </li>
+                            <li><span class="amenity-bullet">🚗</span><span data-translate="amenity-parking">Private
+                                    Parking (2 cars)</span></li>
                         </ul>
                     </div>
                 </div>
-                
+
                 <!-- TAB 2: MASTER BEDROOM -->
                 <div id="layout-master" class="layout-pane">
                     <div class="layout-gallery">
@@ -206,7 +287,8 @@
                             <rect x="50" y="55" width="100" height="20" rx="4" fill="#CDE8F5" />
                             <rect x="60" y="45" width="35" height="15" rx="3" fill="#FFFFFF" />
                             <rect x="105" y="45" width="35" height="15" rx="3" fill="#FFFFFF" />
-                            <text x="100" y="130" fill="#6C757D" font-size="10" font-family="Quicksand" text-anchor="middle">Master Bedroom (Placeholder)</text>
+                            <text x="100" y="130" fill="#6C757D" font-size="10" font-family="Quicksand"
+                                text-anchor="middle">Master Bedroom (Placeholder)</text>
                         </svg>
                         <div class="layout-side-images">
                             <svg class="layout-sub-img" viewBox="0 0 100 80" style="background-color: #E3F2FD;">
@@ -221,16 +303,21 @@
                     </div>
                     <div class="layout-details">
                         <h3 data-translate="layout-master-title">Master Bedroom Cozy Suite</h3>
-                        <p data-translate="layout-master-desc">Features a comfortable King-size bed, private attached bathroom, and peaceful garden views.</p>
+                        <p data-translate="layout-master-desc">Features a comfortable King-size bed, private attached
+                            bathroom, and peaceful garden views.</p>
                         <ul class="amenities-list">
-                            <li><span class="amenity-bullet">🛏️</span><span data-translate="amenity-kingbed">King-Sized Bed</span></li>
-                            <li><span class="amenity-bullet">🚿</span><span data-translate="amenity-ensuite">Attached Bathroom</span></li>
-                            <li><span class="amenity-bullet">👗</span><span data-translate="amenity-closet">Wardrobe & Hangers</span></li>
-                            <li><span class="amenity-bullet">💄</span><span data-translate="amenity-vanity">Vanity Table & Mirror</span></li>
+                            <li><span class="amenity-bullet">🛏️</span><span data-translate="amenity-kingbed">King-Sized
+                                    Bed</span></li>
+                            <li><span class="amenity-bullet">🚿</span><span data-translate="amenity-ensuite">Attached
+                                    Bathroom</span></li>
+                            <li><span class="amenity-bullet">👗</span><span data-translate="amenity-closet">Wardrobe &
+                                    Hangers</span></li>
+                            <li><span class="amenity-bullet">💄</span><span data-translate="amenity-vanity">Vanity Table
+                                    & Mirror</span></li>
                         </ul>
                     </div>
                 </div>
-                
+
                 <!-- TAB 3: LIVING AREA -->
                 <div id="layout-living" class="layout-pane">
                     <div class="layout-gallery">
@@ -240,7 +327,8 @@
                             <rect x="30" y="70" width="15" height="40" rx="4" fill="#CDE8F5" />
                             <rect x="155" y="70" width="15" height="40" rx="4" fill="#CDE8F5" />
                             <rect x="75" y="55" width="50" height="20" rx="4" fill="#FFD6E0" />
-                            <text x="100" y="135" fill="#6C757D" font-size="10" font-family="Quicksand" text-anchor="middle">Living Room (Placeholder)</text>
+                            <text x="100" y="135" fill="#6C757D" font-size="10" font-family="Quicksand"
+                                text-anchor="middle">Living Room (Placeholder)</text>
                         </svg>
                         <div class="layout-side-images">
                             <svg class="layout-sub-img" viewBox="0 0 100 80" style="background-color: #FFF0F5;">
@@ -249,18 +337,24 @@
                             </svg>
                             <svg class="layout-sub-img" viewBox="0 0 100 80" style="background-color: #E3F2FD;">
                                 <rect x="25" y="25" width="50" height="30" rx="4" fill="#FFFFFF" />
-                                <text x="50" y="42" fill="#6C757D" font-size="6" text-anchor="middle">Dining Table</text>
+                                <text x="50" y="42" fill="#6C757D" font-size="6" text-anchor="middle">Dining
+                                    Table</text>
                             </svg>
                         </div>
                     </div>
                     <div class="layout-details">
                         <h3 data-translate="layout-living-title">Comfortable Shared Spaces</h3>
-                        <p data-translate="layout-living-desc">Relax in our warm living hall complete with cozy sofas, dining table, and direct access to the kitchen.</p>
+                        <p data-translate="layout-living-desc">Relax in our warm living hall complete with cozy sofas,
+                            dining table, and direct access to the kitchen.</p>
                         <ul class="amenities-list">
-                            <li><span class="amenity-bullet">🛋️</span><span data-translate="amenity-sofas">Plush Sofas</span></li>
-                            <li><span class="amenity-bullet">🪑</span><span data-translate="amenity-dining">6-Seater Dining Set</span></li>
-                            <li><span class="amenity-bullet">❄️</span><span data-translate="amenity-fridge">Large Refrigerator</span></li>
-                            <li><span class="amenity-bullet">💧</span><span data-translate="amenity-water">Water Dispenser</span></li>
+                            <li><span class="amenity-bullet">🛋️</span><span data-translate="amenity-sofas">Plush
+                                    Sofas</span></li>
+                            <li><span class="amenity-bullet">🪑</span><span data-translate="amenity-dining">6-Seater
+                                    Dining Set</span></li>
+                            <li><span class="amenity-bullet">❄️</span><span data-translate="amenity-fridge">Large
+                                    Refrigerator</span></li>
+                            <li><span class="amenity-bullet">💧</span><span data-translate="amenity-water">Water
+                                    Dispenser</span></li>
                         </ul>
                     </div>
                 </div>
@@ -274,50 +368,71 @@
             <h2 data-translate="book-title">How to Book</h2>
             <p data-translate="book-desc">Follow these three simple steps to secure your stay with us.</p>
         </div>
-        
+
         <div class="booking-steps">
             <!-- Step 1 -->
             <div class="glass-card step-card">
                 <span class="step-number">1</span>
                 <div class="floating-icon-wrapper blue" style="margin-top: 10px;">
-                    <svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" />
+                    </svg>
                 </div>
                 <h3 data-translate="step-1-title">Check Availability</h3>
-                <p data-translate="step-1-desc">Contact us via WhatsApp or phone call to check if your desired dates are available.</p>
+                <p data-translate="step-1-desc">Contact us via WhatsApp or phone call to check if your desired dates are
+                    available.</p>
             </div>
-            
+
             <!-- Step 2 -->
             <div class="glass-card step-card">
                 <span class="step-number">2</span>
                 <div class="floating-icon-wrapper pink" style="margin-top: 10px;">
-                    <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" />
+                    </svg>
                 </div>
                 <h3 data-translate="step-2-title">Confirm Booking Details</h3>
-                <p data-translate="step-2-desc">Provide us with guest details, duration of stay, and make a reservation deposit.</p>
+                <p data-translate="step-2-desc">Provide us with guest details, duration of stay, and make a reservation
+                    deposit.</p>
             </div>
-            
+
             <!-- Step 3 -->
             <div class="glass-card step-card">
                 <span class="step-number">3</span>
                 <div class="floating-icon-wrapper yellow" style="margin-top: 10px;">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z" />
+                    </svg>
                 </div>
                 <h3 data-translate="step-3-title">Welcome to Besut!</h3>
-                <p data-translate="step-3-desc">Receive check-in details and key collection instructions. Your cozy stay awaits!</p>
+                <p data-translate="step-3-desc">Receive check-in details and key collection instructions. Your cozy stay
+                    awaits!</p>
             </div>
         </div>
-        
+
         <div class="booking-action">
             <div class="clay-card booking-action-card">
                 <h3 data-translate="action-title">Ready to book your cozy stay?</h3>
-                <p data-translate="action-desc">Direct WhatsApp booking guarantees the quickest response and the best local rates.</p>
+                <p data-translate="action-desc">Direct WhatsApp booking guarantees the quickest response and the best
+                    local rates.</p>
                 <div class="booking-buttons-flex">
-                    <a href="https://wa.me/60123456789" target="_blank" rel="noopener noreferrer" class="btn-clay btn-clay-blue">
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.733-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.966a9.9 9.9 0 0 0-6.979-2.88C6.182.96 1.757 5.33 1.753 10.76c0 1.706.467 3.376 1.354 4.85l-.993 3.626 3.738-.971c1.517.827 2.99 1.258 4.75 1.259-.001.001-.001.001 0 0z"/></svg>
+                    <a href="https://wa.me/60123456789" target="_blank" rel="noopener noreferrer"
+                        class="btn-clay btn-clay-blue">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path
+                                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.733-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.966a9.9 9.9 0 0 0-6.979-2.88C6.182.96 1.757 5.33 1.753 10.76c0 1.706.467 3.376 1.354 4.85l-.993 3.626 3.738-.971c1.517.827 2.99 1.258 4.75 1.259-.001.001-.001.001 0 0z" />
+                        </svg>
                         <span data-translate="btn-whatsapp">Chat on WhatsApp</span>
                     </a>
                     <a href="tel:+60123456789" class="btn-clay btn-clay-white">
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                        </svg>
                         <span data-translate="btn-call">Call Direct</span>
                     </a>
                 </div>
@@ -329,29 +444,37 @@
     <section id="rules" class="section-padding container">
         <div class="section-header">
             <h2 data-translate="rules-title">House Rules</h2>
-            <p data-translate="rules-desc">Please observe our homestay guidelines to ensure a comfortable stay for everyone.</p>
+            <p data-translate="rules-desc">Please observe our homestay guidelines to ensure a comfortable stay for
+                everyone.</p>
         </div>
-        
+
         <div class="rules-container">
             <!-- What's Welcome -->
             <div class="clay-card rules-card allowed">
                 <h3 data-translate="rules-allowed-title">What's Welcome</h3>
                 <ul class="rules-list">
-                    <li><span class="rule-icon">✔</span><span data-translate="rule-a1">Keep the house tidy and clean.</span></li>
-                    <li><span class="rule-icon">✔</span><span data-translate="rule-a2">Turn off air conditioners and lights when going out.</span></li>
-                    <li><span class="rule-icon">✔</span><span data-translate="rule-a3">Dispose of garbage in the designated outdoor bins.</span></li>
-                    <li><span class="rule-icon">✔</span><span data-translate="rule-a4">Park vehicles responsibly within the gate.</span></li>
+                    <li><span class="rule-icon">✔</span><span data-translate="rule-a1">Keep the house tidy and
+                            clean.</span></li>
+                    <li><span class="rule-icon">✔</span><span data-translate="rule-a2">Turn off air conditioners and
+                            lights when going out.</span></li>
+                    <li><span class="rule-icon">✔</span><span data-translate="rule-a3">Dispose of garbage in the
+                            designated outdoor bins.</span></li>
+                    <li><span class="rule-icon">✔</span><span data-translate="rule-a4">Park vehicles responsibly within
+                            the gate.</span></li>
                 </ul>
             </div>
-            
+
             <!-- What's Prohibited -->
             <div class="clay-card rules-card not-allowed">
                 <h3 data-translate="rules-not-allowed-title">What's Prohibited</h3>
                 <ul class="rules-list">
-                    <li><span class="rule-icon">✘</span><span data-translate="rule-n1">Strictly no smoking inside the house.</span></li>
+                    <li><span class="rule-icon">✘</span><span data-translate="rule-n1">Strictly no smoking inside the
+                            house.</span></li>
                     <li><span class="rule-icon">✘</span><span data-translate="rule-n2">No pets allowed.</span></li>
-                    <li><span class="rule-icon">✘</span><span data-translate="rule-n3">No loud parties or events after 11:00 PM.</span></li>
-                    <li><span class="rule-icon">✘</span><span data-translate="rule-n4">No illegal activities or hazardous items.</span></li>
+                    <li><span class="rule-icon">✘</span><span data-translate="rule-n3">No loud parties or events after
+                            11:00 PM.</span></li>
+                    <li><span class="rule-icon">✘</span><span data-translate="rule-n4">No illegal activities or
+                            hazardous items.</span></li>
                 </ul>
             </div>
         </div>
@@ -365,9 +488,10 @@
                     <span class="logo-circle">N</span>
                     NSJay Guest House
                 </a>
-                <p data-translate="footer-about">NSJay Guest House provides a comfortable, clean, and charming claymorphic stay in Kuala Besut, Terengganu, Malaysia.</p>
+                <p data-translate="footer-about">NSJay Guest House provides a comfortable, clean, and charming
+                    claymorphic stay in Kuala Besut, Terengganu, Malaysia.</p>
             </div>
-            
+
             <div class="footer-links">
                 <h4 data-translate="footer-quick-links">Quick Links</h4>
                 <ul class="footer-menu">
@@ -378,26 +502,35 @@
                     <li><a href="#rules" data-translate="nav-rules">House Rules</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-contact">
                 <h4 data-translate="footer-contact-title">Contact Us</h4>
                 <ul class="footer-contact-details">
                     <li>
-                        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                        </svg>
                         +60 12-345 6789
                     </li>
                     <li>
-                        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                            <polyline points="22,6 12,13 2,6" />
+                        </svg>
                         stay@nsjayguesthouse.com
                     </li>
                     <li>
-                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>
                         Kuala Besut, Terengganu, Malaysia
                     </li>
                 </ul>
             </div>
         </div>
-        
+
         <div class="container footer-bottom">
             <p data-translate="footer-rights">© 2026 NSJay Guest House. All rights reserved.</p>
         </div>
@@ -406,4 +539,5 @@
     <!-- App Logic Script -->
     <script src="app.js"></script>
 </body>
+
 </html>

@@ -448,7 +448,7 @@ header.scrolled {
 .hero-clay-base {
   width: 100%;
   max-width: 420px;
-  height: 420px;
+  aspect-ratio: 1 / 1;
   background: radial-gradient(circle, var(--pastel-pink) 0%, var(--pastel-blue) 100%);
   border-radius: 50%;
   box-shadow: var(--clay-shadow-card);
@@ -1010,20 +1010,53 @@ footer {
 /* Small Mobile View (480px and under) */
 @media (max-width: 480px) {
   .hero-clay-base {
-    width: 280px;
-    height: 280px;
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .hero-buttons .btn-clay {
+    justify-content: center;
   }
   
   .floating-badge {
-    padding: 10px 14px;
+    padding: 8px 12px;
+  }
+  
+  .floating-badge .badge-text span {
+    font-size: 0.8rem;
+  }
+  
+  .floating-badge .badge-text small {
+    font-size: 0.7rem;
   }
   
   .badge-1 {
-    left: -10px;
+    left: -15px;
+    top: 5%;
   }
   
   .badge-2 {
-    right: -10px;
+    right: -15px;
+    bottom: 10%;
+  }
+  
+  .layout-main-img {
+    height: 220px;
+  }
+  
+  .layout-side-images {
+    flex-direction: column;
+  }
+  
+  .layout-sub-img {
+    height: 160px;
+    width: 100%;
   }
   
   .booking-buttons-flex {
