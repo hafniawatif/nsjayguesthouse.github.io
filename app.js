@@ -27,7 +27,7 @@ const translations = {
     "loc-nearby-title": "Nearby Attractions",
     "loc-nearby-text": "Kuala Besut Jetty (Gateway to Perhentian Island) - 5 mins drive\nBukit Keluang Beach & Hiking Trail - 10 mins drive\nLocal Seafood Restaurants & Markets - walking distance",
     "loc-desc-card": "NSJay Guest House is located in Anak Ikan, Besut, Terengganu, in a peaceful and convenient area for guests.",
-    "btn-maps-waze": "Open in Google Maps / Waze (Buka Google Maps / Waze)",
+    "btn-maps-waze": "Open in Google Maps",
 
     // Layout Section
     "layout-title": "Guest House Layout",
@@ -124,7 +124,7 @@ const translations = {
     "loc-nearby-title": "Tarikan Berhampiran",
     "loc-nearby-text": "Jeti Kuala Besut (Pintu ke Pulau Perhentian) - 5 minit memandu\nPantai Bukit Keluang & Laluan Mendaki - 10 minit memandu\nKedai Makan Seafood & Pasar Tempatan - jarak berjalan kaki",
     "loc-desc-card": "NSJay Guest House terletak di Besut, Terengganu, di kawasan yang tenang dan mudah untuk para tetamu.",
-    "btn-maps-waze": "Open in Google Maps / Waze (Buka Google Maps / Waze)",
+    "btn-maps-waze": "Buka Google Maps",
 
     // Layout Section
     "layout-title": "Susun Atur Guest House",
