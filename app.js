@@ -31,13 +31,12 @@ const translations = {
 
     // Layout Section
     "layout-title": "Guest House Layout",
-    "layout-tab-entire": "Entire House",
-    "layout-tab-master": "Master Bedroom",
-    "layout-tab-living": "Living Area",
+    "layout-tab-semid": "Semi-D House (Units 1 & 2)",
+    "layout-tab-tiny": "Tiny House (Unit 3)",
     
-    // Layout - Entire House
-    "layout-entire-title": "Spacious 3-Bedroom Homestay",
-    "layout-entire-desc": "Rent the entire guest house for maximum privacy. Ideal for families and groups looking for a complete home experience.",
+    // Layout - Semi-D House
+    "layout-semid-title": "Spacious 3-Bedroom Homestay",
+    "layout-semid-desc": "Rent a full Semi-D house unit, perfect for families and groups looking for space, privacy, and convenience.",
     "amenity-rooms": "3 Bedrooms",
     "amenity-bathrooms": "2 Bathrooms",
     "amenity-ac": "Fully Air-Conditioned",
@@ -45,21 +44,15 @@ const translations = {
     "amenity-tv": "Smart TV",
     "amenity-parking": "Private Parking (2 cars)",
 
-    // Layout - Master Bedroom
-    "layout-master-title": "Master Bedroom Cozy Suite",
-    "layout-master-desc": "Features a comfortable King-size bed, private attached bathroom, and peaceful garden views.",
-    "amenity-kingbed": "King-Sized Bed",
-    "amenity-ensuite": "Attached Bathroom",
-    "amenity-closet": "Wardrobe & Hangers",
-    "amenity-vanity": "Vanity Table & Mirror",
-
-    // Layout - Living Area
-    "layout-living-title": "Comfortable Shared Spaces",
-    "layout-living-desc": "Relax in our warm living hall complete with cozy sofas, dining table, and direct access to the kitchen.",
-    "amenity-sofas": "Plush Sofas",
-    "amenity-dining": "6-Seater Dining Set",
-    "amenity-fridge": "Large Refrigerator",
-    "amenity-water": "Water Dispenser",
+    // Layout - Tiny House
+    "layout-tiny-title": "Cozy Tiny House Unit",
+    "layout-tiny-desc": "Our modern tiny house offers a warm, fully air-conditioned bedroom, a comfortable living area with TV, and kitchen amenities. Ideal for couples or small families.",
+    "amenity-tiny-bedroom": "Cozy Bedroom (1 Queen Bed)",
+    "amenity-tiny-living": "Living Hall with Sofa & TV",
+    "amenity-tiny-dining": "Dining Set & Kettle",
+    "amenity-tiny-ac": "Fully Air-Conditioned",
+    "amenity-tiny-fans": "Ceiling Fans",
+    "amenity-tiny-parking": "Private Parking",
 
     // How to Book Section
     "book-title": "How to Book",
@@ -127,13 +120,12 @@ const translations = {
 
     // Layout Section
     "layout-title": "Susun Atur Guest House",
-    "layout-tab-entire": "Keseluruhan Rumah",
-    "layout-tab-master": "Bilik Utama",
-    "layout-tab-living": "Ruang Tamu",
+    "layout-tab-semid": "Rumah Semi-D (Unit 1 & 2)",
+    "layout-tab-tiny": "Tiny House (Unit 3)",
 
-    // Layout - Entire House
-    "layout-entire-title": "Homestay Luas 3 Bilik",
-    "layout-entire-desc": "Sewa keseluruhan rumah untuk privasi penuh. Sangat sesuai untuk keluarga dan kumpulan besar.",
+    // Layout - Semi-D House
+    "layout-semid-title": "Homestay Semi-D 3-Bilik yang Luas",
+    "layout-semid-desc": "Sewa keseluruhan unit rumah Semi-D kami, sangat sesuai untuk keluarga dan kumpulan besar yang inginkan keselesaan dan privasi.",
     "amenity-rooms": "3 Bilik Tidur",
     "amenity-bathrooms": "2 Bilik Air",
     "amenity-ac": "Pendingin Hawa Penuh",
@@ -141,21 +133,15 @@ const translations = {
     "amenity-tv": "Smart TV",
     "amenity-parking": "Parkir Peribadi (2 kereta)",
 
-    // Layout - Master Bedroom
-    "layout-master-title": "Bilik Tidur Utama Cozy",
-    "layout-master-desc": "Dilengkapi dengan katil bersaiz King, bilik air peribadi di dalam, dan pemandangan taman yang tenang.",
-    "amenity-kingbed": "Katil Bersaiz King",
-    "amenity-ensuite": "Bilik Air attached",
-    "amenity-closet": "Almari Pakaian & Penyangkut",
-    "amenity-vanity": "Meja Solek & Cermin",
-
-    // Layout - Living Area
-    "layout-living-title": "Ruang Berkongsi Selesa",
-    "layout-living-desc": "Bersantai di ruang tamu kami yang selesa lengkap dengan sofa empuk, meja makan, dan akses terus ke dapur.",
-    "amenity-sofas": "Sofa Empuk",
-    "amenity-dining": "Meja Makan 6 Kerusi",
-    "amenity-fridge": "Peti Sejuk Besar",
-    "amenity-water": "Penapis Air",
+    // Layout - Tiny House
+    "layout-tiny-title": "Unit Tiny House yang Selesa",
+    "layout-tiny-desc": "Tiny house moden kami menawarkan bilik tidur berhawa dingin yang selesa, ruang tamu dengan TV, dan ruang makan yang cantik. Sangat sesuai untuk pasangan atau keluarga kecil.",
+    "amenity-tiny-bedroom": "Bilik Tidur Selesa (1 Katil Queen)",
+    "amenity-tiny-living": "Ruang Tamu dengan Sofa & TV",
+    "amenity-tiny-dining": "Meja Makan & Cerek Elektrik",
+    "amenity-tiny-ac": "Pendingin Hawa Penuh",
+    "amenity-tiny-fans": "Kipas Siling",
+    "amenity-tiny-parking": "Parkir Peribadi",
 
     // How to Book Section
     "book-title": "Cara Menempah",
@@ -299,3 +285,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// Function to change layout main image when clicking thumbnails
+window.changeLayoutImage = function(thumbElement, mainImageId) {
+  const mainImg = document.getElementById(mainImageId);
+  if (mainImg) {
+    mainImg.src = thumbElement.src;
+    mainImg.alt = thumbElement.alt;
+    
+    // Update active class on siblings
+    const parent = thumbElement.parentElement;
+    parent.querySelectorAll('.layout-thumb').forEach(thumb => {
+      thumb.classList.remove('active');
+    });
+    thumbElement.classList.add('active');
+  }
+};
+
