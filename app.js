@@ -283,26 +283,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 3.5. Space Tab Toggle Interaction for Tiny House
-  const spaceBtns = document.querySelectorAll('.space-nav-btn');
-  const spacePanes = document.querySelectorAll('.space-pane');
+  // 3.5. Space Tab Toggle Interaction (Local to each Photo Tour container)
+  document.querySelectorAll('.photo-tour-container').forEach(container => {
+    const spaceBtns = container.querySelectorAll('.space-nav-btn');
+    const spacePanes = container.querySelectorAll('.space-pane');
 
-  spaceBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const clickedBtn = e.currentTarget;
-      const targetSpace = clickedBtn.getAttribute('data-space');
-      
-      // Update active button state
-      spaceBtns.forEach(b => b.classList.remove('active'));
-      clickedBtn.classList.add('active');
+    spaceBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const clickedBtn = e.currentTarget;
+        const targetSpace = clickedBtn.getAttribute('data-space');
+        
+        // Update active button state locally
+        spaceBtns.forEach(b => b.classList.remove('active'));
+        clickedBtn.classList.add('active');
 
-      // Show/Hide relevant space panes
-      spacePanes.forEach(pane => {
-        if (pane.id === `space-${targetSpace}`) {
-          pane.classList.add('active');
-        } else {
-          pane.classList.remove('active');
-        }
+        // Show/Hide relevant space panes locally
+        spacePanes.forEach(pane => {
+          if (pane.id === `space-${targetSpace}`) {
+            pane.classList.add('active');
+          } else {
+            pane.classList.remove('active');
+          }
+        });
       });
     });
   });
