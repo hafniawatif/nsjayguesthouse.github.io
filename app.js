@@ -14,8 +14,8 @@ const translations = {
     "hero-badge-1-sub": "Besut, Terengganu",
     "hero-badge-2": "Family Friendly",
     "hero-badge-2-sub": "Fully Equipped",
-    "hero-title": "Your Cozy Home Away From Home in Besut",
-    "hero-desc": "Experience a warm, family-friendly stay at NSJay Guest House. Perfectly situated for your gateway to the beautiful Perhentian Islands or relaxing beach getaways.",
+    "hero-title": "Welcome to NSJay Guest House",
+    "hero-desc": "A cosy and fully equipped guest house in Besut, perfect for family holidays, weekend escapes, business trips, or a relaxing beach and island getaway.",
     "btn-explore": "Explore Layout",
     "btn-contact": "Contact Us",
 
@@ -111,8 +111,8 @@ const translations = {
     "hero-badge-1-sub": "Besut, Terengganu",
     "hero-badge-2": "Mesra Keluarga",
     "hero-badge-2-sub": "Lengkap Segala Kemudahan",
-    "hero-title": "Penginapan Cozy & Selesa Seperti Rumah Sendiri di Besut",
-    "hero-desc": "Nikmati penginapan mesra keluarga yang selesa di NSJay Guest House. Lokasi strategik untuk percutian pantai atau transit ke Pulau Perhentian.",
+    "hero-title": "Selamat Datang ke NSJay Guest House",
+    "hero-desc": "Sebuah rumah tetamu yang selesa dan lengkap di Besut, sesuai untuk percutian keluarga, percutian hujung minggu, perjalanan perniagaan, atau percutian pantai dan pulau yang santai.",
     "btn-explore": "Lihat Susun Atur",
     "btn-contact": "Hubungi Kami",
 
