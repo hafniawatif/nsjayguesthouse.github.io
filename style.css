@@ -768,6 +768,10 @@ header.scrolled {
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+.space-nav-btn * {
+  pointer-events: none;
+}
+
 .space-nav-btn span {
   font-family: var(--font-display);
   font-weight: 700;

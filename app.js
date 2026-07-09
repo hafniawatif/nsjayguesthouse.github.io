@@ -289,8 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   spaceBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      const clickedBtn = e.target.closest('.space-nav-btn');
-      if (!clickedBtn) return;
+      const clickedBtn = e.currentTarget;
       const targetSpace = clickedBtn.getAttribute('data-space');
       
       // Update active button state
