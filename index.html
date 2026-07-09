@@ -319,26 +319,10 @@
 
                 <!-- TAB 2: TINY HOUSE -->
                 <div id="layout-tiny" class="layout-pane">
-                    <div class="layout-gallery">
-                        <div class="layout-main-img-wrapper">
-                            <img id="tiny-main" src="tiny-living.jpg" class="layout-main-img" alt="Tiny House Living Room" />
-                            <div class="layout-thumbnails">
-                                <img src="tiny-living.jpg" class="layout-thumb active" onclick="changeLayoutImage(this, 'tiny-main')" alt="Tiny House Living Room" />
-                                <img src="tiny-bedroom-1.jpg" class="layout-thumb" onclick="changeLayoutImage(this, 'tiny-main')" alt="Tiny House Bedroom View 1" />
-                                <img src="tiny-bedroom-2.jpg" class="layout-thumb" onclick="changeLayoutImage(this, 'tiny-main')" alt="Tiny House Bedroom View 2" />
-                                <img src="tiny-dining-1.jpg" class="layout-thumb" onclick="changeLayoutImage(this, 'tiny-main')" alt="Tiny House Dining Area View 1" />
-                                <img src="tiny-dining-2.jpg" class="layout-thumb" onclick="changeLayoutImage(this, 'tiny-main')" alt="Tiny House Dining Area View 2" />
-                            </div>
-                        </div>
-                        <div class="layout-side-images">
-                            <img src="tiny-bedroom-1.jpg" class="layout-sub-img" alt="Tiny House Bedroom" />
-                            <img src="tiny-dining-1.jpg" class="layout-sub-img" alt="Tiny House Dining Area" />
-                        </div>
-                    </div>
-                    <div class="layout-details">
+                    <div class="layout-details" style="grid-column: span 2; padding: 0 0 20px 0; width: 100%;">
                         <h3 data-translate="layout-tiny-title">Cozy Tiny House Unit</h3>
                         <p data-translate="layout-tiny-desc">Our modern tiny house offers a warm, fully air-conditioned bedroom, a comfortable living area with TV, and kitchen amenities. Ideal for couples or small families.</p>
-                        <ul class="amenities-list">
+                        <ul class="amenities-list" style="margin-top: 15px;">
                             <li><span class="amenity-bullet">🛏️</span><span data-translate="amenity-tiny-bedroom">Cozy Bedroom (1 Queen Bed)</span></li>
                             <li><span class="amenity-bullet">🛋️</span><span data-translate="amenity-tiny-living">Living Hall with Sofa & TV</span></li>
                             <li><span class="amenity-bullet">🍽️</span><span data-translate="amenity-tiny-dining">Dining Set & Kettle</span></li>
@@ -346,6 +330,81 @@
                             <li><span class="amenity-bullet">🌀</span><span data-translate="amenity-tiny-fans">Ceiling Fans</span></li>
                             <li><span class="amenity-bullet">🚗</span><span data-translate="amenity-tiny-parking">Private Parking</span></li>
                         </ul>
+                    </div>
+
+                    <div class="photo-tour-container" style="grid-column: span 2; width: 100%;">
+                        <!-- Space Category Navigation Bar -->
+                        <div class="space-nav-container">
+                            <div class="space-nav">
+                                <button class="space-nav-btn active" data-space="living">
+                                    <div class="space-icon-slot">🛋️</div>
+                                    <span data-translate="space-living">Living Room</span>
+                                </button>
+                                <button class="space-nav-btn" data-space="dining">
+                                    <div class="space-icon-slot">🍽️</div>
+                                    <span data-translate="space-dining">Dining Area</span>
+                                </button>
+                                <button class="space-nav-btn" data-space="bedroom">
+                                    <div class="space-icon-slot">🛏️</div>
+                                    <span data-translate="space-bedroom">Bedroom</span>
+                                </button>
+                                <button class="space-nav-btn" data-space="toilet">
+                                    <div class="space-icon-slot">🚿</div>
+                                    <span data-translate="space-toilet">Toilet</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Showcase Grid Areas -->
+                        <div class="space-display">
+                            <!-- Space 1: Living Room -->
+                            <div id="space-living" class="space-pane active">
+                                <div class="tiny-photo-grid single-image">
+                                    <div class="tiny-photo-card">
+                                        <img src="tiny-living.jpg" alt="Tiny House Living Room" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Space 2: Dining Area -->
+                            <div id="space-dining" class="space-pane">
+                                <div class="tiny-photo-grid two-images">
+                                    <div class="tiny-photo-card">
+                                        <img src="tiny-dining-1.jpg" alt="Tiny House Dining Area - View 1" />
+                                    </div>
+                                    <div class="tiny-photo-card">
+                                        <img src="tiny-dining-2.jpg" alt="Tiny House Dining Area - View 2" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Space 3: Bedroom -->
+                            <div id="space-bedroom" class="space-pane">
+                                <div class="tiny-photo-grid two-images">
+                                    <div class="tiny-photo-card">
+                                        <img src="tiny-bedroom-1.jpg" alt="Tiny House Bedroom - View 1" />
+                                    </div>
+                                    <div class="tiny-photo-card">
+                                        <img src="tiny-bedroom-2.jpg" alt="Tiny House Bedroom - View 2" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Space 4: Toilet -->
+                            <div id="space-toilet" class="space-pane">
+                                <div class="tiny-photo-grid three-images">
+                                    <div class="tiny-photo-card hero-card">
+                                        <img src="tiny-bathroom-3.jpg" alt="Tiny House Toilet Room" />
+                                    </div>
+                                    <div class="tiny-photo-card">
+                                        <img src="tiny-bathroom-2.jpg" alt="Tiny House Shower Unit" />
+                                    </div>
+                                    <div class="tiny-photo-card">
+                                        <img src="tiny-bathroom-1.jpg" alt="Tiny House Toiletries" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

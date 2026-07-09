@@ -33,6 +33,10 @@ const translations = {
     "layout-title": "Guest House Layout",
     "layout-tab-semid": "Semi-D House (Units 1 & 2)",
     "layout-tab-tiny": "Tiny House (Unit 3)",
+    "space-living": "Living Room",
+    "space-bedroom": "Bedroom",
+    "space-toilet": "Toilet",
+    "space-dining": "Dining Area",
     
     // Layout - Semi-D House
     "layout-semid-title": "Spacious 3-Bedroom Homestay",
@@ -122,6 +126,10 @@ const translations = {
     "layout-title": "Susun Atur Guest House",
     "layout-tab-semid": "Rumah Semi-D (Unit 1 & 2)",
     "layout-tab-tiny": "Tiny House (Unit 3)",
+    "space-living": "Ruang Tamu",
+    "space-bedroom": "Bilik Tidur",
+    "space-toilet": "Tandas",
+    "space-dining": "Ruang Makan",
 
     // Layout - Semi-D House
     "layout-semid-title": "Homestay Semi-D 3-Bilik yang Luas",
@@ -267,6 +275,31 @@ document.addEventListener('DOMContentLoaded', () => {
       // Show/Hide relevant content panes
       panes.forEach(pane => {
         if (pane.id === `layout-${targetPane}`) {
+          pane.classList.add('active');
+        } else {
+          pane.classList.remove('active');
+        }
+      });
+    });
+  });
+
+  // 3.5. Space Tab Toggle Interaction for Tiny House
+  const spaceBtns = document.querySelectorAll('.space-nav-btn');
+  const spacePanes = document.querySelectorAll('.space-pane');
+
+  spaceBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const clickedBtn = e.target.closest('.space-nav-btn');
+      if (!clickedBtn) return;
+      const targetSpace = clickedBtn.getAttribute('data-space');
+      
+      // Update active button state
+      spaceBtns.forEach(b => b.classList.remove('active'));
+      clickedBtn.classList.add('active');
+
+      // Show/Hide relevant space panes
+      spacePanes.forEach(pane => {
+        if (pane.id === `space-${targetSpace}`) {
           pane.classList.add('active');
         } else {
           pane.classList.remove('active');
