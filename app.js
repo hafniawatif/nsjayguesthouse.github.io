@@ -485,18 +485,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!isAdminLoggedIn) return;
     activeImageContainer = e.currentTarget;
     activeImgElement = activeImageContainer.querySelector('img');
-    
-    // Open photo editor modal
-    if (photoEditorModal) {
-      photoEditorModal.classList.remove('hidden');
-      if (photoEditorFile) photoEditorFile.value = '';
-      if (photoEditorImg) {
-        photoEditorImg.src = activeImgElement.src.startsWith('data:') ? activeImgElement.src : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="%23eee"/></svg>';
-      }
-      if (cropper) {
-        cropper.destroy();
-        cropper = null;
-      }
+
+    // Destroy any stale Cropper instance first
+    if (cropper) {
+      cropper.destroy();
+      cropper = null;
+    }
+
+    // Reset the file input so the 'change' event fires even if the same
+    // file is selected again
+    if (photoEditorFile) {
+      photoEditorFile.value = '';
+      // Trigger the native file picker — FileReader will handle the rest
+      photoEditorFile.click();
     }
   }
 
@@ -504,31 +505,51 @@ document.addEventListener('DOMContentLoaded', () => {
   if (photoEditorFile) {
     photoEditorFile.addEventListener('change', (e) => {
       const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          if (cropper) cropper.destroy();
-          photoEditorImg.src = event.target.result;
-          
-          photoEditorImg.onload = () => {
-            cropper = new Cropper(photoEditorImg, {
-              aspectRatio: 4 / 3,
-              viewMode: 1,
-              ready() {
-                const data = cropper.getImageData();
-                if (resizeWidthInput && resizeHeightInput) {
-                  resizeWidthInput.value = Math.round(data.naturalWidth);
-                  resizeHeightInput.value = Math.round(data.naturalHeight);
-                  if (widthValLabel) widthValLabel.textContent = Math.round(data.naturalWidth) + 'px';
-                  if (heightValLabel) heightValLabel.textContent = Math.round(data.naturalHeight) + 'px';
-                }
-              }
-            });
-            photoEditorImg.onload = null;
-          };
-        };
-        reader.readAsDataURL(file);
+      if (!file) return;
+
+      // Show the modal with a loading placeholder immediately
+      if (photoEditorModal) photoEditorModal.classList.remove('hidden');
+      if (photoEditorImg) {
+        // Safe SVG placeholder — no local resource access
+        photoEditorImg.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="%23e2e8f0"/><text x="50%" y="50%" font-size="14" text-anchor="middle" dominant-baseline="middle" fill="%2394a3b8">Loading...</text></svg>';
       }
+
+      // Destroy existing cropper before loading a new image
+      if (cropper) {
+        cropper.destroy();
+        cropper = null;
+      }
+
+      // Use FileReader to produce a safe Base64 data URL — no file:// access
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const dataUrl = event.target.result; // e.g. "data:image/jpeg;base64,/9j/..."
+
+        // Set the base64 data URL as the modal preview source
+        photoEditorImg.src = dataUrl;
+
+        // Wait for the <img> to fully paint before initialising Cropper
+        photoEditorImg.onload = function () {
+          photoEditorImg.onload = null; // prevent double-init on future src changes
+          cropper = new Cropper(photoEditorImg, {
+            aspectRatio: NaN,   // free crop by default
+            viewMode: 1,
+            autoCropArea: 0.9,
+            background: false,
+            ready () {
+              // Prefill the resize inputs with the image's natural dimensions
+              const imgData = cropper.getImageData();
+              if (resizeWidthInput)  resizeWidthInput.value  = Math.round(imgData.naturalWidth);
+              if (resizeHeightInput) resizeHeightInput.value = Math.round(imgData.naturalHeight);
+              if (widthValLabel)  widthValLabel.textContent  = Math.round(imgData.naturalWidth)  + 'px';
+              if (heightValLabel) heightValLabel.textContent = Math.round(imgData.naturalHeight) + 'px';
+            }
+          });
+        };
+      };
+
+      // Trigger the async read — onload fires when complete
+      reader.readAsDataURL(file);
     });
   }
 
