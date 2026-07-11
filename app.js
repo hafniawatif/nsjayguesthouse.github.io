@@ -567,18 +567,49 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
-      
+
+      // Fix 3: Always .trim() the token to strip accidental whitespace
       const token = githubTokenInput ? githubTokenInput.value.trim() : '';
+
       if (token) {
-        // We have a token: attempt to upload directly to GitHub as a binary file first!
         showLoadingOverlay(true, 'Uploading image to GitHub...');
         try {
           const base64Data = dataUrl.split(',')[1];
           const filename = `images/uploaded_img_${Date.now()}.jpeg`;
-          
           const repo = 'hafniawatif/nsjayguesthouse.github.io';
           const uploadUrl = `https://api.github.com/repos/${repo}/contents/${filename}`;
-          
+
+          // Fix 2: Check if the file already exists to retrieve its SHA.
+          // For a brand-new timestamped file this will always be 404, so sha stays null.
+          let existingSha = null;
+          try {
+            const checkRes = await fetch(uploadUrl, {
+              headers: {
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.v3+json'
+              }
+            });
+            if (checkRes.ok) {
+              const checkData = await checkRes.json();
+              existingSha = checkData.sha || null;
+            } else if (checkRes.status !== 404) {
+              // Unexpected error during SHA check (not a simple "file missing")
+              const errData = await checkRes.json().catch(() => ({}));
+              throw new Error(`SHA check failed (HTTP ${checkRes.status}): ${errData.message || checkRes.statusText}`);
+            }
+            // 404 = file doesn't exist yet → proceed with existingSha = null (correct for new files)
+          } catch (shaErr) {
+            // Re-throw only if it wasn't swallowed inside the if-block above
+            throw shaErr;
+          }
+
+          // Build the PUT body; omit 'sha' entirely for brand-new files
+          const putBody = {
+            message: `Upload ${filename} via Admin Portal`,
+            content: base64Data
+          };
+          if (existingSha) putBody.sha = existingSha;
+
           const response = await fetch(uploadUrl, {
             method: 'PUT',
             headers: {
@@ -586,25 +617,43 @@ document.addEventListener('DOMContentLoaded', () => {
               'Content-Type': 'application/json',
               'Accept': 'application/vnd.github.v3+json'
             },
-            body: JSON.stringify({
-              message: `Update ${filename} via Admin Portal`,
-              content: base64Data
-            })
+            body: JSON.stringify(putBody)
           });
 
-          if (!response.ok) throw new Error('Image upload failed');
+          // Fix 1: Map each HTTP status to a clear, actionable error message
+          if (!response.ok) {
+            const errData = await response.json().catch(() => ({}));
+            const ghMsg = errData.message || response.statusText;
+            let hint;
+            switch (response.status) {
+              case 401: hint = 'Invalid or expired token. Check your GitHub PAT.'; break;
+              case 403: hint = 'Access forbidden. The token may lack "repo" scope.'; break;
+              case 404: hint = 'Repository or path not found. Verify the repo name.'; break;
+              case 409: hint = 'Conflict — SHA mismatch. The file may have changed on GitHub.'; break;
+              case 422: hint = `Validation failed: ${ghMsg}`; break;
+              default:  hint = `GitHub API error: ${ghMsg}`;
+            }
+            throw new Error(`Failed to upload image (HTTP ${response.status}). ${hint}`);
+          }
 
           activeImgElement.src = filename;
           activeImgElement.classList.remove('opacity-0');
+          console.info(`[Admin] Image uploaded successfully → ${filename}`);
+
         } catch (err) {
-          alert('Failed to upload image file to GitHub. Fallback to base64 encoding inside HTML.');
+          // Always hide the loading screen before showing the error
+          showLoadingOverlay(false);
+          console.error('[Admin] Image upload error:', err);
+          alert(`Image upload failed:\n\n${err.message}\n\nFalling back to base64 preview.`);
           activeImgElement.src = dataUrl;
           activeImgElement.classList.remove('opacity-0');
+          closePhotoEditor();
+          return; // exit early — finally would run showLoadingOverlay(false) again, harmless but explicit
         } finally {
           showLoadingOverlay(false);
         }
       } else {
-        // No token: save locally as base64 inside DOM (user can save it when clicking Save All)
+        // No token: save locally as base64 inside DOM
         activeImgElement.src = dataUrl;
         activeImgElement.classList.remove('opacity-0');
       }
@@ -627,6 +676,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Save all changes directly to GitHub
   if (btnSaveAll) {
     btnSaveAll.addEventListener('click', async () => {
+      // Fix 3: .trim() the token immediately to strip invisible whitespace
       const token = githubTokenInput ? githubTokenInput.value.trim() : '';
       if (!token) {
         alert('Please enter a GitHub Personal Access Token (PAT) first.');
@@ -637,24 +687,21 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      showLoadingOverlay(true, 'Updating index.html on GitHub...');
+      showLoadingOverlay(true, 'Uploading to GitHub...');
 
       try {
-        // Prepare clean HTML
-        // Temporarily exit admin mode to get clean HTML representation without editor UI highlights
+        // Temporarily exit admin mode so the exported HTML is clean (no editor highlights)
         const wasAdmin = isAdminLoggedIn;
         if (wasAdmin) exitAdminMode();
-
-        // Parse outerHTML
-        let cleanHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-
-        // Restore admin mode locally if it was active
+        const cleanHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
         if (wasAdmin) enterAdminMode();
 
         const repo = 'hafniawatif/nsjayguesthouse.github.io';
         const fileUrl = `https://api.github.com/repos/${repo}/contents/index.html`;
 
-        // 1. Get current SHA of index.html
+        // Fix 2: Fetch current SHA with explicit status checking.
+        // index.html will always exist in the repo, but we guard against every other failure clearly.
+        showLoadingOverlay(true, 'Fetching current file SHA...');
         const getFileResponse = await fetch(fileUrl, {
           headers: {
             'Authorization': `token ${token}`,
@@ -662,11 +709,29 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
 
-        if (!getFileResponse.ok) throw new Error('Could not retrieve current index.html information from GitHub');
+        // Fix 1 + Fix 2: Map SHA-fetch failures to clear messages and always hide loading on error
+        if (!getFileResponse.ok) {
+          const errData = await getFileResponse.json().catch(() => ({}));
+          const ghMsg = errData.message || getFileResponse.statusText;
+          let hint;
+          switch (getFileResponse.status) {
+            case 401: hint = 'Invalid or expired token. Check your GitHub PAT and re-paste it (no spaces).'; break;
+            case 403: hint = 'Forbidden. Make sure your PAT has the "repo" (or "contents: write") scope.'; break;
+            case 404: hint = 'Repository or file not found. Verify the repo is "hafniawatif/nsjayguesthouse.github.io" and index.html exists.'; break;
+            default:  hint = `GitHub responded: ${ghMsg}`;
+          }
+          throw new Error(`Could not fetch index.html SHA (HTTP ${getFileResponse.status}). ${hint}`);
+        }
+
         const fileData = await getFileResponse.json();
         const sha = fileData.sha;
+        if (!sha) {
+          throw new Error('GitHub returned file data but SHA is missing. Please try again.');
+        }
+        console.info(`[Admin] Fetched SHA for index.html: ${sha}`);
 
-        // 2. Commit updated index.html
+        // Commit the updated index.html
+        showLoadingOverlay(true, 'Committing changes to GitHub...');
         const base64Content = btoa(unescape(encodeURIComponent(cleanHtml)));
         const commitResponse = await fetch(fileUrl, {
           method: 'PUT',
@@ -682,11 +747,31 @@ document.addEventListener('DOMContentLoaded', () => {
           })
         });
 
-        if (!commitResponse.ok) throw new Error('Failed to update index.html on GitHub');
+        // Fix 1: Surface the exact GitHub error on commit failure
+        if (!commitResponse.ok) {
+          const errData = await commitResponse.json().catch(() => ({}));
+          const ghMsg = errData.message || commitResponse.statusText;
+          let hint;
+          switch (commitResponse.status) {
+            case 401: hint = 'Token rejected at commit stage. It may have been revoked.'; break;
+            case 403: hint = 'Forbidden at commit stage. Check PAT scope (needs repo write access).'; break;
+            case 404: hint = 'Repo or file not found during commit. The repo path may have changed.'; break;
+            case 409: hint = 'SHA conflict — the file was changed remotely between your fetch and commit. Reload and try again.'; break;
+            case 422: hint = `GitHub validation error: ${ghMsg}`; break;
+            default:  hint = `GitHub API error: ${ghMsg}`;
+          }
+          throw new Error(`Commit failed (HTTP ${commitResponse.status}). ${hint}`);
+        }
 
-        alert('Changes saved successfully to GitHub!');
+        console.info('[Admin] index.html committed to GitHub successfully.');
+        alert('✅ Changes saved successfully to GitHub!');
+
       } catch (err) {
-        alert(`Error: ${err.message}`);
+        // Fix 1: Always hide the loading screen before alerting the user
+        showLoadingOverlay(false);
+        console.error('[Admin] Save-to-GitHub error:', err);
+        alert(`❌ Upload failed — loading screen dismissed.\n\n${err.message}`);
+        return; // loading overlay already hidden; skip finally double-hide (harmless but clear)
       } finally {
         showLoadingOverlay(false);
       }
