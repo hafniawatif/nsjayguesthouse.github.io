@@ -208,6 +208,20 @@ function updateLanguageUI(lang) {
     }
   });
 
+  // Translate elements with custom bilingual attributes (data-en and data-bm)
+  document.querySelectorAll('[data-en][data-bm]').forEach(element => {
+    const textEn = element.getAttribute('data-en');
+    const textBm = element.getAttribute('data-bm');
+    const text = lang === 'en' ? textEn : textBm;
+    if (text !== null) {
+      if (text.includes('\n')) {
+        element.innerHTML = text.replace(/\n/g, '<br>');
+      } else {
+        element.textContent = text;
+      }
+    }
+  });
+
   // Toggle active class on language switcher buttons
   document.querySelectorAll('.lang-btn').forEach(btn => {
     const btnLang = btn.getAttribute('data-lang');
