@@ -350,3 +350,380 @@ window.changeLayoutImage = function(thumbElement, mainImageId) {
   }
 };
 
+// --- ADMIN MODE & EDITING PORTAL INTEGRATION ---
+document.addEventListener('DOMContentLoaded', () => {
+  let isAdminLoggedIn = false;
+  let cropper = null;
+  let activeImageContainer = null;
+  let activeImgElement = null;
+
+  const adminTrigger = document.getElementById('admin-trigger');
+  const adminModal = document.getElementById('admin-modal');
+  const adminClose = document.getElementById('admin-close');
+  const adminLoginForm = document.getElementById('admin-login-form');
+  const loginErrorMsg = document.getElementById('login-error-msg');
+  const adminControlBar = document.getElementById('admin-control-bar');
+  const btnExitAdmin = document.getElementById('btn-exit-admin');
+  const btnExportCode = document.getElementById('btn-export-code');
+  const btnSaveAll = document.getElementById('btn-save-all');
+  const githubTokenInput = document.getElementById('github-token');
+
+  // Photo Editor Modal elements
+  const photoEditorModal = document.getElementById('photo-editor-modal');
+  const photoEditorClose = document.getElementById('photo-editor-close');
+  const photoEditorFile = document.getElementById('photo-editor-file');
+  const photoEditorImg = document.getElementById('photo-editor-img');
+  const photoEditorSave = document.getElementById('photo-editor-save');
+  const photoEditorCancel = document.getElementById('photo-editor-cancel');
+  
+  const resizeWidthInput = document.getElementById('photo-resize-width');
+  const resizeHeightInput = document.getElementById('photo-resize-height');
+  const widthValLabel = document.getElementById('photo-width-val');
+  const heightValLabel = document.getElementById('photo-height-val');
+
+  // Load saved token from localStorage if available
+  const savedToken = localStorage.getItem('nsjay-github-token');
+  if (savedToken && githubTokenInput) {
+    githubTokenInput.value = savedToken;
+  }
+
+  if (githubTokenInput) {
+    githubTokenInput.addEventListener('input', () => {
+      localStorage.setItem('nsjay-github-token', githubTokenInput.value.trim());
+    });
+  }
+
+  // Toggle Login Modal
+  if (adminTrigger) {
+    adminTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      adminModal.classList.remove('hidden');
+    });
+  }
+
+  if (adminClose) {
+    adminClose.addEventListener('click', () => {
+      adminModal.classList.add('hidden');
+      if (loginErrorMsg) loginErrorMsg.classList.add('hidden');
+    });
+  }
+
+  // Admin Login Handle
+  if (adminLoginForm) {
+    adminLoginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('admin-username').value.trim();
+      const password = document.getElementById('admin-password').value;
+
+      // Local mock login credentials check
+      if (username.toLowerCase() === 'nsjayguesthouse') {
+        enterAdminMode();
+        adminModal.classList.add('hidden');
+      } else {
+        if (loginErrorMsg) {
+          loginErrorMsg.textContent = 'Invalid credentials. Try again.';
+          loginErrorMsg.classList.remove('hidden');
+        }
+      }
+    });
+  }
+
+  function enterAdminMode() {
+    isAdminLoggedIn = true;
+    document.body.classList.add('admin-mode');
+    if (adminControlBar) adminControlBar.classList.remove('hidden');
+
+    // Make elements with data-en/data-bm and editable-text contenteditable
+    const editables = document.querySelectorAll('.editable-text, [data-en][data-bm]');
+    editables.forEach(el => {
+      // Don't make SVGs, images, inputs or wrapper blocks contenteditable
+      if (['SVG', 'PATH', 'IMG', 'INPUT', 'BUTTON', 'FORM'].includes(el.tagName)) return;
+      el.setAttribute('contenteditable', 'plaintext-only');
+      el.classList.add('focus:outline-none', 'focus:ring-2', 'focus:ring-blue-400/50', 'rounded-lg', 'transition-all');
+
+      // Blur handler to update the correct language attribute value dynamically
+      el.addEventListener('blur', () => {
+        const text = el.textContent.trim();
+        if (currentLanguage === 'en') {
+          el.setAttribute('data-en', text);
+        } else {
+          el.setAttribute('data-bm', text);
+        }
+      });
+    });
+
+    // Wire click triggers on image containers
+    document.querySelectorAll('.editable-img-container').forEach(container => {
+      container.classList.add('hover:ring-4', 'hover:ring-blue-400/50', 'transition-all');
+      container.addEventListener('click', handleImageContainerClick);
+    });
+  }
+
+  function exitAdminMode() {
+    isAdminLoggedIn = false;
+    document.body.classList.remove('admin-mode');
+    if (adminControlBar) adminControlBar.classList.add('hidden');
+
+    const editables = document.querySelectorAll('.editable-text, [data-en][data-bm]');
+    editables.forEach(el => {
+      el.removeAttribute('contenteditable');
+      el.classList.remove('focus:outline-none', 'focus:ring-2', 'focus:ring-blue-400/50');
+    });
+
+    document.querySelectorAll('.editable-img-container').forEach(container => {
+      container.classList.remove('hover:ring-4', 'hover:ring-blue-400/50');
+      container.removeEventListener('click', handleImageContainerClick);
+    });
+  }
+
+  if (btnExitAdmin) {
+    btnExitAdmin.addEventListener('click', exitAdminMode);
+  }
+
+  // Handle click on image containers
+  function handleImageContainerClick(e) {
+    if (!isAdminLoggedIn) return;
+    activeImageContainer = e.currentTarget;
+    activeImgElement = activeImageContainer.querySelector('img');
+    
+    // Open photo editor modal
+    if (photoEditorModal) {
+      photoEditorModal.classList.remove('hidden');
+      if (photoEditorFile) photoEditorFile.value = '';
+      if (photoEditorImg) {
+        photoEditorImg.src = activeImgElement.src.startsWith('data:') ? activeImgElement.src : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="%23eee"/></svg>';
+      }
+      if (cropper) {
+        cropper.destroy();
+        cropper = null;
+      }
+    }
+  }
+
+  // File selection inside photo editor
+  if (photoEditorFile) {
+    photoEditorFile.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          if (cropper) cropper.destroy();
+          photoEditorImg.src = event.target.result;
+          
+          photoEditorImg.onload = () => {
+            cropper = new Cropper(photoEditorImg, {
+              aspectRatio: 4 / 3,
+              viewMode: 1,
+              ready() {
+                const data = cropper.getImageData();
+                if (resizeWidthInput && resizeHeightInput) {
+                  resizeWidthInput.value = Math.round(data.naturalWidth);
+                  resizeHeightInput.value = Math.round(data.naturalHeight);
+                  if (widthValLabel) widthValLabel.textContent = Math.round(data.naturalWidth) + 'px';
+                  if (heightValLabel) heightValLabel.textContent = Math.round(data.naturalHeight) + 'px';
+                }
+              }
+            });
+            photoEditorImg.onload = null;
+          };
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  // Ratio Buttons setup
+  document.querySelectorAll('.photo-ratio-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (!cropper) return;
+      const ratio = parseFloat(btn.getAttribute('data-ratio'));
+      cropper.setAspectRatio(isNaN(ratio) ? NaN : ratio);
+    });
+  });
+
+  // Aspect Ratio dimensions ranges change
+  if (resizeWidthInput) {
+    resizeWidthInput.addEventListener('input', () => {
+      if (widthValLabel) widthValLabel.textContent = resizeWidthInput.value + 'px';
+    });
+  }
+  if (resizeHeightInput) {
+    resizeHeightInput.addEventListener('input', () => {
+      if (heightValLabel) heightValLabel.textContent = resizeHeightInput.value + 'px';
+    });
+  }
+
+  // Photo editor save
+  if (photoEditorSave) {
+    photoEditorSave.addEventListener('click', async () => {
+      if (!cropper || !activeImgElement) return;
+
+      const width = resizeWidthInput ? parseInt(resizeWidthInput.value) : undefined;
+      const height = resizeHeightInput ? parseInt(resizeHeightInput.value) : undefined;
+
+      const canvas = cropper.getCroppedCanvas({
+        width: width,
+        height: height
+      });
+
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+      
+      const token = githubTokenInput ? githubTokenInput.value.trim() : '';
+      if (token) {
+        // We have a token: attempt to upload directly to GitHub as a binary file first!
+        showLoadingOverlay(true, 'Uploading image to GitHub...');
+        try {
+          const base64Data = dataUrl.split(',')[1];
+          const filename = `images/uploaded_img_${Date.now()}.jpeg`;
+          
+          const repo = 'hafniawatif/nsjayguesthouse.github.io';
+          const uploadUrl = `https://api.github.com/repos/${repo}/contents/${filename}`;
+          
+          const response = await fetch(uploadUrl, {
+            method: 'PUT',
+            headers: {
+              'Authorization': `token ${token}`,
+              'Content-Type': 'application/json',
+              'Accept': 'application/vnd.github.v3+json'
+            },
+            body: JSON.stringify({
+              message: `Update ${filename} via Admin Portal`,
+              content: base64Data
+            })
+          });
+
+          if (!response.ok) throw new Error('Image upload failed');
+
+          activeImgElement.src = filename;
+          activeImgElement.classList.remove('opacity-0');
+        } catch (err) {
+          alert('Failed to upload image file to GitHub. Fallback to base64 encoding inside HTML.');
+          activeImgElement.src = dataUrl;
+          activeImgElement.classList.remove('opacity-0');
+        } finally {
+          showLoadingOverlay(false);
+        }
+      } else {
+        // No token: save locally as base64 inside DOM (user can save it when clicking Save All)
+        activeImgElement.src = dataUrl;
+        activeImgElement.classList.remove('opacity-0');
+      }
+
+      closePhotoEditor();
+    });
+  }
+
+  function closePhotoEditor() {
+    if (photoEditorModal) photoEditorModal.classList.add('hidden');
+    if (cropper) {
+      cropper.destroy();
+      cropper = null;
+    }
+  }
+
+  if (photoEditorCancel) photoEditorCancel.addEventListener('click', closePhotoEditor);
+  if (photoEditorClose) photoEditorClose.addEventListener('click', closePhotoEditor);
+
+  // Save all changes directly to GitHub
+  if (btnSaveAll) {
+    btnSaveAll.addEventListener('click', async () => {
+      const token = githubTokenInput ? githubTokenInput.value.trim() : '';
+      if (!token) {
+        alert('Please enter a GitHub Personal Access Token (PAT) first.');
+        return;
+      }
+
+      if (!confirm('Are you sure you want to commit these changes to the GitHub repository?')) {
+        return;
+      }
+
+      showLoadingOverlay(true, 'Updating index.html on GitHub...');
+
+      try {
+        // Prepare clean HTML
+        // Temporarily exit admin mode to get clean HTML representation without editor UI highlights
+        const wasAdmin = isAdminLoggedIn;
+        if (wasAdmin) exitAdminMode();
+
+        // Parse outerHTML
+        let cleanHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+        // Restore admin mode locally if it was active
+        if (wasAdmin) enterAdminMode();
+
+        const repo = 'hafniawatif/nsjayguesthouse.github.io';
+        const fileUrl = `https://api.github.com/repos/${repo}/contents/index.html`;
+
+        // 1. Get current SHA of index.html
+        const getFileResponse = await fetch(fileUrl, {
+          headers: {
+            'Authorization': `token ${token}`,
+            'Accept': 'application/vnd.github.v3+json'
+          }
+        });
+
+        if (!getFileResponse.ok) throw new Error('Could not retrieve current index.html information from GitHub');
+        const fileData = await getFileResponse.json();
+        const sha = fileData.sha;
+
+        // 2. Commit updated index.html
+        const base64Content = btoa(unescape(encodeURIComponent(cleanHtml)));
+        const commitResponse = await fetch(fileUrl, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${token}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github.v3+json'
+          },
+          body: JSON.stringify({
+            message: 'Update index.html via Admin Portal',
+            content: base64Content,
+            sha: sha
+          })
+        });
+
+        if (!commitResponse.ok) throw new Error('Failed to update index.html on GitHub');
+
+        alert('Changes saved successfully to GitHub!');
+      } catch (err) {
+        alert(`Error: ${err.message}`);
+      } finally {
+        showLoadingOverlay(false);
+      }
+    });
+  }
+
+  // Export Code utility
+  if (btnExportCode) {
+    btnExportCode.addEventListener('click', () => {
+      const wasAdmin = isAdminLoggedIn;
+      if (wasAdmin) exitAdminMode();
+      
+      const cleanHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      
+      if (wasAdmin) enterAdminMode();
+
+      const blob = new Blob([cleanHtml], { type: 'text/html' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'index.html';
+      a.click();
+    });
+  }
+
+  function showLoadingOverlay(show, text = '') {
+    const overlay = document.getElementById('loading-overlay');
+    if (!overlay) return;
+    if (show) {
+      overlay.classList.remove('hidden');
+      const textEl = overlay.querySelector('p');
+      if (textEl && text) textEl.textContent = text;
+    } else {
+      overlay.classList.add('hidden');
+    }
+  }
+
+  // Hide loading overlay by default
+  showLoadingOverlay(false);
+});
+
