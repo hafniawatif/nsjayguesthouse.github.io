@@ -304,161 +304,279 @@
     <section id="layout" class="section-padding">
         <div class="container">
             <div class="section-header">
-                <h2 data-translate="layout-title">Guest House Layout</h2>
-                <div class="layout-toggle-container">
-                    <div class="layout-toggle">
-                        <button class="layout-toggle-btn active" data-tab="entire"
-                            data-translate="layout-tab-entire">Entire
-                            House</button>
-                        <button class="layout-toggle-btn" data-tab="master" data-translate="layout-tab-master">Master
-                            Bedroom</button>
-                        <button class="layout-toggle-btn" data-tab="living" data-translate="layout-tab-living">Living
-                            Area</button>
+                <h2 data-translate="layout-title">Guest House Layout</h2>            <div class="layout-toggle-container">
+                <div class="layout-toggle">
+                    <button class="layout-toggle-btn active" data-tab="semid" data-translate="layout-tab-semid">Semi-D House (Units 1 & 2)</button>
+                    <button class="layout-toggle-btn" data-tab="tiny" data-translate="layout-tab-tiny">Tiny House (Unit 3)</button>
+                </div>
+            </div>
+
+            <div class="layout-display">
+                <!-- TAB 1: SEMI-D HOUSE -->
+                <div id="layout-semid" class="layout-pane active">
+                    <div class="layout-details" style="grid-column: span 2; padding: 0 0 20px 0; width: 100%;">
+                        <h3 data-translate="layout-semid-title">Spacious 3-Bedroom Homestay</h3>
+                        <p data-translate="layout-semid-desc">Rent a full Semi-D house unit, perfect for families and groups looking for space, privacy, and convenience.</p>
+                        <ul class="amenities-list" style="margin-top: 15px;">
+                            <li><span class="amenity-bullet">🛏️</span><span data-translate="amenity-rooms">3 Bedrooms</span></li>
+                            <li><span class="amenity-bullet">🚿</span><span data-translate="amenity-bathrooms">2 Bathrooms</span></li>
+                            <li><span class="amenity-bullet">❄️</span><span data-translate="amenity-ac">Fully Air-Conditioned</span></li>
+                            <li><span class="amenity-bullet">🍳</span><span data-translate="amenity-kitchen">Equipped Kitchen</span></li>
+                            <li><span class="amenity-bullet">📺</span><span data-translate="amenity-tv">Smart TV</span></li>
+                            <li><span class="amenity-bullet">🚗</span><span data-translate="amenity-parking">Private Parking (2 cars)</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="photo-tour-container" style="grid-column: span 2; width: 100%;">
+                        <!-- Space Category Navigation Bar -->
+                        <div class="space-nav-container">
+                            <div class="space-nav">
+                                <button class="space-nav-btn active" data-space="semid-living">
+                                    <div class="space-icon-slot">🛋️</div>
+                                    <span data-translate="space-living">Living Room</span>
+                                </button>
+                                <button class="space-nav-btn" data-space="semid-dining">
+                                    <div class="space-icon-slot">🍽️</div>
+                                    <span data-translate="space-dining">Dining Area</span>
+                                </button>
+                                <button class="space-nav-btn" data-space="semid-bedroom">
+                                    <div class="space-icon-slot">🛏️</div>
+                                    <span data-translate="space-bedroom">Bedroom</span>
+                                </button>
+                                <button class="space-nav-btn" data-space="semid-toilet">
+                                    <div class="space-icon-slot">🚿</div>
+                                    <span data-translate="space-toilet">Toilet</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Showcase Grid Areas -->
+                        <div class="space-display">
+                            <!-- Space 1: Living Room -->
+                            <div id="space-semid-living" class="space-pane active">
+                                <div class="tiny-photo-grid single-image">
+                                    <div class="tiny-photo-card">
+                                        <img src="semid-living-2.jpg" alt="Semi-D Living Room" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Space 2: Dining Area -->
+                            <div id="space-semid-dining" class="space-pane">
+                                <div class="tiny-photo-grid two-images">
+                                    <div class="tiny-photo-card">
+                                        <img src="semid-dining.jpg" alt="Semi-D Dining Area" />
+                                    </div>
+                                    <div class="tiny-photo-card">
+                                        <img src="semid-kitchen.jpg" alt="Semi-D Kitchen Area" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Space 3: Bedroom -->
+                            <div id="space-semid-bedroom" class="space-pane">
+                                <div class="tiny-photo-grid two-images">
+                                    <div class="tiny-photo-card">
+                                        <img src="semid-bedroom-1.jpg" alt="Semi-D Bedroom - View 1" />
+                                    </div>
+                                    <div class="tiny-photo-card">
+                                        <img src="semid-bedroom-2.jpg" alt="Semi-D Bedroom - View 2" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Space 4: Toilet -->
+                            <div id="space-semid-toilet" class="space-pane">
+                                <div class="tiny-photo-grid two-images">
+                                    <div class="tiny-photo-card">
+                                        <img src="semid-bathroom.jpg" alt="Semi-D Toilet Room" />
+                                    </div>
+                                    <div class="tiny-photo-card">
+                                        <img src="semid-bathroom-detail.jpg" alt="Semi-D Toilet Sink & Heater" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="layout-display">
-                    <!-- TAB 1: ENTIRE HOUSE -->
-                    <div id="layout-entire" class="layout-pane active">
-                        <div class="layout-gallery">
-                            <svg class="layout-main-img" viewBox="0 0 200 150" style="background-color: #E3F2FD;">
-                                <!-- Placeholder illustration of modern homestay exterior -->
-                                <rect x="30" y="50" width="140" height="70" rx="10" fill="#FFFFFF" />
-                                <polygon points="20,55 100,20 180,55" fill="#CDE8F5" />
-                                <!-- windows and doors -->
-                                <rect x="50" y="75" width="20" height="45" fill="#3D405B" />
-                                <rect x="90" y="75" width="25" height="20" rx="3" fill="#FFF3CD" />
-                                <rect x="130" y="75" width="25" height="20" rx="3" fill="#FFF3CD" />
-                                <text x="100" y="140" fill="#6C757D" font-size="10" font-family="Quicksand"
-                                    text-anchor="middle">Homestay Front View (Placeholder)</text>
-                            </svg>
-                            <div class="layout-side-images">
-                                <svg class="layout-sub-img" viewBox="0 0 100 80" style="background-color: #FFF0F5;">
-                                    <rect x="20" y="25" width="60" height="40" rx="6" fill="#FFFFFF" />
-                                    <text x="50" y="50" fill="#6C757D" font-size="6" text-anchor="middle">Garden
-                                        Yard</text>
-                                </svg>
-                                <svg class="layout-sub-img" viewBox="0 0 100 80" style="background-color: #FFF3CD;">
-                                    <rect x="25" y="20" width="50" height="45" rx="6" fill="#FFFFFF" />
-                                    <text x="50" y="45" fill="#6C757D" font-size="6" text-anchor="middle">Dining
-                                        Area</text>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="layout-details">
-                            <h3 data-translate="layout-entire-title">Spacious 3-Bedroom Homestay</h3>
-                            <p data-translate="layout-entire-desc">Rent the entire guest house for maximum privacy.
-                                Ideal
-                                for families and groups looking for a complete home experience.</p>
-                            <ul class="amenities-list">
-                                <li><span class="amenity-bullet">🛏️</span><span data-translate="amenity-rooms">3
-                                        Bedrooms</span></li>
-                                <li><span class="amenity-bullet">🚿</span><span data-translate="amenity-bathrooms">2
-                                        Bathrooms</span></li>
-                                <li><span class="amenity-bullet">❄️</span><span data-translate="amenity-ac">Fully
-                                        Air-Conditioned</span></li>
-                                <li><span class="amenity-bullet">🍳</span><span
-                                        data-translate="amenity-kitchen">Equipped
-                                        Kitchen</span></li>
-                                <li><span class="amenity-bullet">📺</span><span data-translate="amenity-tv">Smart
-                                        TV</span>
-                                </li>
-                                <li><span class="amenity-bullet">🚗</span><span data-translate="amenity-parking">Private
-                                        Parking (2 cars)</span></li>
-                            </ul>
-                        </div>
+                <!-- TAB 2: TINY HOUSE -->
+                <div id="layout-tiny" class="layout-pane">
+                    <div class="layout-details" style="grid-column: span 2; padding: 0 0 20px 0; width: 100%;">
+                        <h3 data-translate="layout-tiny-title">Cozy Tiny House Unit</h3>
+                        <p data-translate="layout-tiny-desc">Our modern tiny house offers a warm, fully air-conditioned bedroom, a comfortable living area with TV, and kitchen amenities. Ideal for couples or small families.</p>
+                        <ul class="amenities-list" style="margin-top: 15px;">
+                            <li><span class="amenity-bullet">🛏️</span><span data-translate="amenity-tiny-bedroom">Cozy Bedroom (1 Queen Bed)</span></li>
+                            <li><span class="amenity-bullet">🛋️</span><span data-translate="amenity-tiny-living">Living Hall with Sofa & TV</span></li>
+                            <li><span class="amenity-bullet">🍽️</span><span data-translate="amenity-tiny-dining">Dining Set & Kettle</span></li>
+                            <li><span class="amenity-bullet">❄️</span><span data-translate="amenity-tiny-ac">Fully Air-Conditioned</span></li>
+                            <li><span class="amenity-bullet">🌀</span><span data-translate="amenity-tiny-fans">Ceiling Fans</span></li>
+                            <li><span class="amenity-bullet">🚗</span><span data-translate="amenity-tiny-parking">Private Parking</span></li>
+                        </ul>
                     </div>
 
-                    <!-- TAB 2: MASTER BEDROOM -->
-                    <div id="layout-master" class="layout-pane">
-                        <div class="layout-gallery">
-                            <svg class="layout-main-img" viewBox="0 0 200 150" style="background-color: #FFF0F5;">
-                                <!-- Bed drawing -->
-                                <rect x="40" y="70" width="120" height="50" rx="8" fill="#FFFFFF" />
-                                <rect x="50" y="55" width="100" height="20" rx="4" fill="#CDE8F5" />
-                                <rect x="60" y="45" width="35" height="15" rx="3" fill="#FFFFFF" />
-                                <rect x="105" y="45" width="35" height="15" rx="3" fill="#FFFFFF" />
-                                <text x="100" y="130" fill="#6C757D" font-size="10" font-family="Quicksand"
-                                    text-anchor="middle">Master Bedroom (Placeholder)</text>
-                            </svg>
-                            <div class="layout-side-images">
-                                <svg class="layout-sub-img" viewBox="0 0 100 80" style="background-color: #E3F2FD;">
-                                    <rect x="30" y="20" width="40" height="50" rx="4" fill="#FFFFFF" />
-                                    <text x="50" y="50" fill="#6C757D" font-size="6"
-                                        text-anchor="middle">Bathroom</text>
-                                </svg>
-                                <svg class="layout-sub-img" viewBox="0 0 100 80" style="background-color: #FFF3CD;">
-                                    <rect x="35" y="20" width="30" height="50" rx="4" fill="#FFFFFF" />
-                                    <text x="50" y="50" fill="#6C757D" font-size="6" text-anchor="middle">Vanity
-                                        Set</text>
-                                </svg>
+                    <div class="photo-tour-container" style="grid-column: span 2; width: 100%;">
+                        <!-- Space Category Navigation Bar -->
+                        <div class="space-nav-container">
+                            <div class="space-nav">
+                                <button class="space-nav-btn active" data-space="living">
+                                    <div class="space-icon-slot">🛋️</div>
+                                    <span data-translate="space-living">Living Room</span>
+                                </button>
+                                <button class="space-nav-btn" data-space="dining">
+                                    <div class="space-icon-slot">🍽️</div>
+                                    <span data-translate="space-dining">Dining Area</span>
+                                </button>
+                                <button class="space-nav-btn" data-space="bedroom">
+                                    <div class="space-icon-slot">🛏️</div>
+                                    <span data-translate="space-bedroom">Bedroom</span>
+                                </button>
+                                <button class="space-nav-btn" data-space="toilet">
+                                    <div class="space-icon-slot">🚿</div>
+                                    <span data-translate="space-toilet">Toilet</span>
+                                </button>
                             </div>
                         </div>
-                        <div class="layout-details">
-                            <h3 data-translate="layout-master-title">Master Bedroom Cozy Suite</h3>
-                            <p data-translate="layout-master-desc">Features a comfortable King-size bed, private
-                                attached
-                                bathroom, and peaceful garden views.</p>
-                            <ul class="amenities-list">
-                                <li><span class="amenity-bullet">🛏️</span><span
-                                        data-translate="amenity-kingbed">King-Sized
-                                        Bed</span></li>
-                                <li><span class="amenity-bullet">🚿</span><span
-                                        data-translate="amenity-ensuite">Attached
-                                        Bathroom</span></li>
-                                <li><span class="amenity-bullet">👗</span><span data-translate="amenity-closet">Wardrobe
-                                        &
-                                        Hangers</span></li>
-                                <li><span class="amenity-bullet">💄</span><span data-translate="amenity-vanity">Vanity
-                                        Table
-                                        & Mirror</span></li>
-                            </ul>
-                        </div>
-                    </div>
 
-                    <!-- TAB 3: LIVING AREA -->
-                    <div id="layout-living" class="layout-pane">
-                        <div class="layout-gallery">
-                            <svg class="layout-main-img" viewBox="0 0 200 150" style="background-color: #FFF3CD;">
-                                <!-- Sofa drawing -->
-                                <rect x="40" y="80" width="120" height="35" rx="6" fill="#FFFFFF" />
-                                <rect x="30" y="70" width="15" height="40" rx="4" fill="#CDE8F5" />
-                                <rect x="155" y="70" width="15" height="40" rx="4" fill="#CDE8F5" />
-                                <rect x="75" y="55" width="50" height="20" rx="4" fill="#FFD6E0" />
-                                <text x="100" y="135" fill="#6C757D" font-size="10" font-family="Quicksand"
-                                    text-anchor="middle">Living Room (Placeholder)</text>
-                            </svg>
-                            <div class="layout-side-images">
-                                <svg class="layout-sub-img" viewBox="0 0 100 80" style="background-color: #FFF0F5;">
-                                    <circle cx="50" cy="40" r="25" fill="#FFFFFF" />
-                                    <text x="50" y="43" fill="#6C757D" font-size="6" text-anchor="middle">Kitchen</text>
-                                </svg>
-                                <svg class="layout-sub-img" viewBox="0 0 100 80" style="background-color: #E3F2FD;">
-                                    <rect x="25" y="25" width="50" height="30" rx="4" fill="#FFFFFF" />
-                                    <text x="50" y="42" fill="#6C757D" font-size="6" text-anchor="middle">Dining
-                                        Table</text>
-                                </svg>
+                        <!-- Showcase Grid Areas -->
+                        <div class="space-display">
+                            <!-- Space 1: Living Room -->
+                            <div id="space-living" class="space-pane active">
+                                <div class="tiny-photo-grid single-image">
+                                    <div class="tiny-photo-card">
+                                        <img src="tiny-living.jpg" alt="Tiny House Living Room" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="layout-details">
-                            <h3 data-translate="layout-living-title">Comfortable Shared Spaces</h3>
-                            <p data-translate="layout-living-desc">Relax in our warm living hall complete with cozy
-                                sofas,
-                                dining table, and direct access to the kitchen.</p>
-                            <ul class="amenities-list">
-                                <li><span class="amenity-bullet">🛋️</span><span data-translate="amenity-sofas">Plush
-                                        Sofas</span></li>
-                                <li><span class="amenity-bullet">🪑</span><span data-translate="amenity-dining">6-Seater
-                                        Dining Set</span></li>
-                                <li><span class="amenity-bullet">❄️</span><span data-translate="amenity-fridge">Large
-                                        Refrigerator</span></li>
-                                <li><span class="amenity-bullet">💧</span><span data-translate="amenity-water">Water
-                                        Dispenser</span></li>
-                            </ul>
+                            
+                            <!-- Space 2: Dining Area -->
+                            <div id="space-dining" class="space-pane">
+                                <div class="tiny-photo-grid two-images">
+                                    <div class="tiny-photo-card">
+                                        <img src="tiny-dining-1.jpg" alt="Tiny House Dining Area - View 1" />
+                                    </div>
+                                    <div class="tiny-photo-card">
+                                        <img src="tiny-dining-2.jpg" alt="Tiny House Dining Area - View 2" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Space 3: Bedroom -->
+                            <div id="space-bedroom" class="space-pane">
+                                <div class="tiny-photo-grid two-images">
+                                    <div class="tiny-photo-card">
+                                        <img src="tiny-bedroom-1.jpg" alt="Tiny House Bedroom - View 1" />
+                                    </div>
+                                    <div class="tiny-photo-card">
+                                        <img src="tiny-bedroom-2.jpg" alt="Tiny House Bedroom - View 2" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Space 4: Toilet -->
+                            <div id="space-toilet" class="space-pane">
+                                <div class="tiny-photo-grid three-images">
+                                    <div class="tiny-photo-card hero-card">
+                                        <img src="tiny-bathroom-3.jpg" alt="Tiny House Toilet Room" />
+                                    </div>
+                                    <div class="tiny-photo-card">
+                                        <img src="tiny-bathroom-2.jpg" alt="Tiny House Shower Unit" />
+                                    </div>
+                                    <div class="tiny-photo-card">
+                                        <img src="tiny-bathroom-1.jpg" alt="Tiny House Toiletries" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- --- NEARBY AMENITIES --- -->
+    <section id="amenities" class="section-padding container">
+        <div class="backdrop-blur-md bg-white/40 rounded-3xl p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-white/30">
+            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-800 text-center mb-8 md:mb-12"
+                data-en="Nearby Amenities & Supermarkets"
+                data-bm="Berdekatan dengan beberapa kemudahan dan pasaraya">
+                Nearby Amenities & Supermarkets
+            </h2>
+            
+            <div class="flex flex-col gap-6">
+                <!-- Row 1: PKT & MR.DIY -->
+                <div class="flex flex-col md:flex-row items-center gap-6 p-6 rounded-2xl bg-white/30 border border-white/30 shadow-[5px_5px_15px_rgba(166,180,200,0.15),_inset_4px_4px_8px_rgba(255,255,255,0.6)] hover:bg-white/50 transition-all duration-300">
+                    <!-- Photo Box -->
+                    <div class="relative w-full md:w-40 h-28 shrink-0 rounded-2xl overflow-hidden bg-gradient-to-br from-blue-100 to-pink-100 border border-white/80 flex items-center justify-center shadow-[inset_-6px_-6px_12px_rgba(0,0,0,0.05),_inset_6px_6px_12px_rgba(255,255,255,0.8),_8px_8px_20px_rgba(166,180,200,0.15)]">
+                        <img src="pkt-mrdiy.png" alt="Real photo of PKT and MR DIY Supermarket from Google" class="absolute inset-0 w-full h-full object-cover" />
+                    </div>
+                    <!-- Text Details -->
+                    <div class="flex-grow text-center md:text-left">
+                        <p class="text-base md:text-lg font-bold text-slate-800"
+                           data-en="Less than 3 minutes to PKT Supermarket and MR.DIY"
+                           data-bm="Kurang 3 minit ke pasaraya PKT dan DIY">
+                           Less than 3 minutes to PKT Supermarket and MR.DIY
+                        </p>
+                    </div>
+                    <!-- Map Button -->
+                    <a href="https://maps.app.goo.gl/A837r6NyrgedPPDF8" target="_blank" class="btn-clay btn-clay-blue shrink-0 shadow-[inset_-3px_-3px_6px_rgba(0,0,0,0.06),_inset_3px_3px_6px_rgba(255,255,255,0.8),_5px_5px_12px_rgba(166,180,200,0.15)] hover:scale-105 active:scale-95 transition-transform duration-200 py-3 px-6 rounded-2xl flex items-center gap-2">
+                        <svg class="w-4 h-4 text-slate-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span data-en="Open in Google Maps" data-bm="Buka di Google Maps">Open in Google Maps</span>
+                    </a>
+                </div>
+
+                <!-- Row 2: Self-Service Laundry -->
+                <div class="flex flex-col md:flex-row items-center gap-6 p-6 rounded-2xl bg-white/30 border border-white/30 shadow-[5px_5px_15px_rgba(166,180,200,0.15),_inset_4px_4px_8px_rgba(255,255,255,0.6)] hover:bg-white/50 transition-all duration-300">
+                    <!-- Photo Box -->
+                    <div class="relative w-full md:w-40 h-28 shrink-0 rounded-2xl overflow-hidden bg-gradient-to-br from-blue-100 to-pink-100 border border-white/80 flex items-center justify-center shadow-[inset_-6px_-6px_12px_rgba(0,0,0,0.05),_inset_6px_6px_12px_rgba(255,255,255,0.8),_8px_8px_20px_rgba(166,180,200,0.15)]">
+                        <img src="laundry.png" alt="Real photo of Self-Service Laundry from Google" class="absolute inset-0 w-full h-full object-cover" />
+                    </div>
+                    <!-- Text Details -->
+                    <div class="flex-grow text-center md:text-left">
+                        <p class="text-base md:text-lg font-bold text-slate-800"
+                           data-en="Less than 5 minutes to Self-Service Laundry"
+                           data-bm="Kurang 5 minit ke Dobi Layan Diri">
+                           Less than 5 minutes to Self-Service Laundry
+                        </p>
+                    </div>
+                    <!-- Map Button -->
+                    <a href="https://maps.app.goo.gl/QWL8o6msQukMtme39" target="_blank" class="btn-clay btn-clay-pink shrink-0 shadow-[inset_-3px_-3px_6px_rgba(0,0,0,0.06),_inset_3px_3px_6px_rgba(255,255,255,0.8),_5px_5px_12px_rgba(166,180,200,0.15)] hover:scale-105 active:scale-95 transition-transform duration-200 py-3 px-6 rounded-2xl flex items-center gap-2">
+                        <svg class="w-4 h-4 text-slate-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span data-en="Open in Google Maps" data-bm="Buka di Google Maps">Open in Google Maps</span>
+                    </a>
+                </div>
+
+                <!-- Row 3: Jerteh Town -->
+                <div class="flex flex-col md:flex-row items-center gap-6 p-6 rounded-2xl bg-white/30 border border-white/30 shadow-[5px_5px_15px_rgba(166,180,200,0.15),_inset_4px_4px_8px_rgba(255,255,255,0.6)] hover:bg-white/50 transition-all duration-300">
+                    <!-- Photo Box -->
+                    <div class="relative w-full md:w-40 h-28 shrink-0 rounded-2xl overflow-hidden bg-gradient-to-br from-blue-100 to-pink-100 border border-white/80 flex items-center justify-center shadow-[inset_-6px_-6px_12px_rgba(0,0,0,0.05),_inset_6px_6px_12px_rgba(255,255,255,0.8),_8px_8px_20px_rgba(166,180,200,0.15)]">
+                        <img src="jerteh-town.png" alt="Real photo of Jerteh Town from Google" class="absolute inset-0 w-full h-full object-cover" />
+                    </div>
+                    <!-- Text Details -->
+                    <div class="flex-grow text-center md:text-left">
+                        <p class="text-base md:text-lg font-bold text-slate-800"
+                           data-en="Less than 15 minutes to Jerteh town centre"
+                           data-bm="Kurang 15 minit ke pusat bandar Jerteh">
+                           Less than 15 minutes to Jerteh town centre
+                        </p>
+                    </div>
+                    <!-- Map Button -->
+                    <a href="https://maps.app.goo.gl/6Z2pV8rrKFeMNgeg7" target="_blank" class="btn-clay btn-clay-blue shrink-0 shadow-[inset_-3px_-3px_6px_rgba(0,0,0,0.06),_inset_3px_3px_6px_rgba(255,255,255,0.8),_5px_5px_12px_rgba(166,180,200,0.15)] hover:scale-105 active:scale-95 transition-transform duration-200 py-3 px-6 rounded-2xl flex items-center gap-2">
+                        <svg class="w-4 h-4 text-slate-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span data-en="Open in Google Maps" data-bm="Buka di Google Maps">Open in Google Maps</span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- --- HOW TO BOOK --- -->
